@@ -1,0 +1,38 @@
+<view class="relative h-screen w-full">
+  <map class="absolute h-full w-full" id="map" subkey="{{key}}" layer-style="2" latitude="{{location.latitude}}"
+    longitude="{{location.longitude}}" scale="{{scale}}" min-scale="{{minScale}}" max-scale="{{maxScale}}"
+    show-location="{{showPosition}}" show-compass="{{isShowCompass}}" markers="{{markers}}" show-scale="{{isShowScale}}"
+    polyline="{{polyline}}">
+  </map>
+
+  <view class="absolute bottom-0 w-full p-20rpx box-border">
+    <view class="bg-white rounded-20rpx">
+      <view class="bg-blue-500 flex overflow-x-scroll rounded-20rpx px-20rpx py-10px">
+        <view wx:for="{{mapDataList}}" wx:key="value" wx:for-item="item"
+          class="shrink-0 {{item.value==dataId?'bg-white':'bg-blue-400'}} rounded-1 mr-10rpx px-16rpx"
+          id="{{item.value}}" bindtap="setMapData">
+          {{item.label}}
+        </view>
+      </view>
+      <view class="bg-gray-500 flex overflow-x-scroll rounded-20rpx px-20rpx py-10px">
+        <view wx:for="{{sessions}}" wx:key="id" wx:for-item="item"
+          class="shrink-0 {{item.id==sessionId?'bg-white':'bg-gray-400'}} rounded-1 mr-10rpx px-16rpx" id="{{item.id}}"
+          bindtap="setSession">
+          {{item.title}}
+        </view>
+      </view>
+      <view class="w-full h-400rpx overflow-y-scroll rounded-20rpx">
+        <view class="py-10rpx px-20rpx border-solid border-0 border-b-2rpx border-gray-400 bg-white" id="-1"
+          bindtap="setVideo">
+          <view>总路线</view>
+        </view>
+        <view wx:for="{{videoList}}" wx:key="aid" wx:for-item="item"
+          class="py-10rpx px-20rpx border-solid border-0 border-b-2rpx border-gray-400 bg-white" id="{{item.aid}}"
+          bindtap="setVideo">
+          <view>{{item.title}}</view>
+          <view class="text-gray-400 text-size-25rpx">{{item.createdStr}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

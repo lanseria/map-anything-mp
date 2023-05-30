@@ -1,0 +1,4 @@
+/**app.wxss**/
+@import 'uno.wxss';
+
+@import 'miniprogram_npm/@vant/weapp/common/index.wxss';

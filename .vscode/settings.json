@@ -1,0 +1,20 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.associations": {
+    "*.vue": "vue",
+    "*.css": "css",
+    "*.cjson": "jsonc",
+    "*.wxss": "css",
+    "*.wxs": "javascript",
+    "*.wxml": "html"
+  },
+  "cSpell.words": [
+    "tdesign",
+    "windi",
+    "windicss",
+    "wxml",
+    "wxss",
+    "zhoushan"
+  ]
+}
