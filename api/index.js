@@ -10,5 +10,5 @@ export function getXuyunPoints(dataSource) {
 }
 
 export function getXuyunLines(dataSource) {
-  return axios.get('https://jihulab.com/data1355712' + dataSource + '/-/raw/main/geojson/track.geojson')
+  return axios.get('https://jihulab.com/data1355712' + dataSource + '/-/raw/main/geojson/allLine.geojson')
 }

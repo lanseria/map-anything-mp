@@ -90,10 +90,13 @@ Page({
     const { currentTarget } = e
     const { id } = currentTarget
     const videoList = this.data.sessions.find(item => item.id == id).videoList
+    // console.log(id);
     this.setData({
-      sessionId: id, videoList
+      sessionId: id,
+      videoList
     })
     this.setMarkers()
+    this.setLines()
     this._includePoints()
   },
   async fetchPoints() {
@@ -105,15 +108,31 @@ Page({
     })
     this.setMarkers()
   },
-  // async fetchLines() {
-  //   const res = await getXuyunLines()
-  //   const featureCollection = res.data
-  //   const { features } = featureCollection
-  //   this.setData({
-  //     featuresOfLine: features
-  //   })
-  //   // this.setMarkers()
-  // },
+  async fetchLines() {
+    const res = await getXuyunLines(this.data.dataId)
+    const featureCollection = res.data
+    const { features } = featureCollection
+    this.setData({
+      featuresOfLine: features.map(item => {
+        return {
+          points: item.geometry.coordinates.map(it => {
+            return { latitude: it[1], longitude: it[0] }
+          }),
+          sessionId: item.properties.sessionId,
+          color: '#ff0000',
+          width: 4,
+          dottedLine: false
+        }
+      })
+    })
+    this.setLines()
+  },
+  async setLines() {
+    const polyline = this.data.featuresOfLine.filter(item => item.sessionId == this.data.sessionId)
+    this.setData({
+      polyline: polyline
+    })
+  },
   async setMarkers() {
     const markers = this.data.features.filter(item => item.properties.sessionId == this.data.sessionId).filter(item => {
       if (this.data.videoId == -1) {
@@ -126,7 +145,7 @@ Page({
       return {
         // title: item.properties.description,
         // label: item.properties.description,
-        iconPath: '/xuyun-map/map-point.png',
+        iconPath: 'https://jihulab.com/data1355712' + this.data.dataId + '/-/raw/main/img/map-point.png',
         id: idx,
         width: 18,
         height: 18,
@@ -166,8 +185,8 @@ Page({
   async fetchData() {
     await this.fetchSessions()
     await this.fetchPoints()
+    await this.fetchLines()
     this._includePoints()
-    // this.fetchLines()
 
   },
   onLoad() {
