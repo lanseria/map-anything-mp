@@ -101,25 +101,18 @@ Page({
   },
   async fetchPoints() {
     const res = await getXuyunPoints(this.data.dataId)
-    const featureCollection = res.data
-    const { features } = featureCollection
     this.setData({
-      features
+      features: res.data
     })
     this.setMarkers()
   },
   async fetchLines() {
     const res = await getXuyunLines(this.data.dataId)
-    const featureCollection = res.data
-    const { features } = featureCollection
     this.setData({
-      featuresOfLine: features.map(item => {
+      featuresOfLine: res.data.map(item => {
         return {
-          points: item.geometry.coordinates.map(it => {
-            return { latitude: it[1], longitude: it[0] }
-          }),
+          ...item,
           sessionId: item.properties.sessionId,
-          color: '#ff0000',
           width: 4,
           dottedLine: false
         }
@@ -130,7 +123,7 @@ Page({
   async setLines() {
     const polyline = this.data.featuresOfLine.filter(item => item.sessionId == this.data.sessionId)
     this.setData({
-      polyline: polyline
+      polyline
     })
   },
   async setMarkers() {
@@ -143,14 +136,11 @@ Page({
       }
     }).map((item, idx) => {
       return {
-        // title: item.properties.description,
-        // label: item.properties.description,
+        ...item,
         iconPath: 'https://jihulab.com/data1355712' + this.data.dataId + '/-/raw/main/img/map-point.png',
         id: idx,
         width: 18,
         height: 18,
-        latitude: +item.geometry.coordinates[1],
-        longitude: +item.geometry.coordinates[0],
         callout: {
           content: item.properties.description,
           fontSize: 16,

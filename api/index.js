@@ -6,9 +6,9 @@ export function getXuyunSessions(dataSource) {
   return axios.get('https://jihulab.com/data1355712' + dataSource + '/-/raw/main/json/allSessions.json')
 }
 export function getXuyunPoints(dataSource) {
-  return axios.get('https://jihulab.com/data1355712' + dataSource + '/-/raw/main/geojson/allPoints.geojson')
+  return axios.get('https://jihulab.com/data1355712' + dataSource + '/-/raw/main/geojson/allPoints.mp.geojson')
 }
 
 export function getXuyunLines(dataSource) {
-  return axios.get('https://jihulab.com/data1355712' + dataSource + '/-/raw/main/geojson/allLine.geojson')
+  return axios.get('https://jihulab.com/data1355712' + dataSource + '/-/raw/main/geojson/allLine.mp.geojson')
 }
